@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SistemaInventarioV6.Data;
+using SistemaInventarioV6.AccesoDatos.Data;
 
 namespace SistemaInventarioV6
 {
@@ -18,7 +18,7 @@ namespace SistemaInventarioV6
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
 
@@ -43,7 +43,7 @@ namespace SistemaInventarioV6
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area=Inventario}/{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();

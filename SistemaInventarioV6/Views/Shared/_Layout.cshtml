@@ -25,6 +25,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @* Aca esta lo del menu, lo de dropdown *@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Contenido</a>
+                            @* Aca se hacen las opciones *@
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdownw-item text-black nav-link" asp-area= "Admin" asp-controller="Bodega" asp-action="Index">Bodegas</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
