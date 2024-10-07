@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SistemaInventario.AccesoDatos.Repositorio;
+using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
 using SistemaInventarioV6.AccesoDatos.Data;
 
 namespace SistemaInventarioV6
@@ -19,6 +21,10 @@ namespace SistemaInventarioV6
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            //Aca se agreaga el servicio
+            builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
+
 
             var app = builder.Build();
 
