@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaInventario.Utilidades
+namespace SistemaInventario.Utilidades1
 {
     public static class DS
     {
-        public const string Exitosa = "Exitosa";
-        public const string Error = "Error";
     }
 }

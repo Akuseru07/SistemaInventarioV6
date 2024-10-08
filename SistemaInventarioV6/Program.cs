@@ -22,7 +22,7 @@ namespace SistemaInventarioV6
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            //Aca se agreaga el servicio
+            //Aca se agreaga el serviciog
             builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
 
 
