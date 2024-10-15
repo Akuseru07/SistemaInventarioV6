@@ -64,7 +64,7 @@ function loadDataTable() {
                 }, "width": "20%"
             }
         ]
-
+        
     });
 }
 function Delete(url) {
@@ -72,7 +72,7 @@ function Delete(url) {
         title: "Estas Seguro de Eliminar el Producto?",
         text: "Este registro no se podra recuperar",
         icon: "warning",
-        buttons: ["Ño", "Shi"],
+        buttons: ["No", "Si"],
         dangerMode: true
     }).then((borrar) => {
         if (borrar) {

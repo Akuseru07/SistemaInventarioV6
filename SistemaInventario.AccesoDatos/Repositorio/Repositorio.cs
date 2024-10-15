@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
+using SistemaInventario.Modelos.Especificaciones;
 using SistemaInventarioV6.AccesoDatos.Data;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,33 @@ namespace SistemaInventario.AccesoDatos.Repositorio
             return await query.ToListAsync();
         }
 
+        public PagedList<T> ObtenerTodosPaginado(Parametros parametros, Expression<Func<T, bool>> filtro = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string incluirPropiedades = null, bool isTracking = true)
+        {
+            IQueryable<T> query = dbSet;
+            if (filtro != null)
+            {
+                query = query.Where(filtro); //select * from where ....
+            }
+
+            if (incluirPropiedades != null)
+            {
+                foreach (var incluirProp in incluirPropiedades.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(incluirProp); // ejemplo "Categoria, Marca"
+                }
+            }
+            if (orderby != null)
+            {
+                query = orderby(query); // va a estar ordenada por el parametro que yo le envie en el orderby
+            }
+            if (!isTracking)
+            {
+                query = query.AsNoTracking(); //Que no muestra que el registro en el caso de que yo lo este utilizando y al mismo tiempo
+                                              //lo quiera actualizar
+            }
+            return PagedList<T>.ToPagesList(query, parametros.PageNumber, parametros.PageSize); 
+        }
+
         public async Task<T> ObtenerPrimero(Expression<Func<T, bool>> filtro = null, string incluirPropiedades = null, bool isTracking = true)
         {
             IQueryable<T> query = dbSet;
@@ -91,5 +119,7 @@ namespace SistemaInventario.AccesoDatos.Repositorio
         {
             dbSet.RemoveRange(entidad); 
         }
+
+        
     }
 }
