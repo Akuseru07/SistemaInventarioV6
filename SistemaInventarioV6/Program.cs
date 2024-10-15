@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using SistemaInventario.AccesoDatos.Repositorio;
 using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
+using SistemaInventario.Utilidades;
 using SistemaInventarioV6.AccesoDatos.Data;
 
 namespace SistemaInventarioV6
@@ -18,13 +21,17 @@ namespace SistemaInventarioV6
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //Aca se agreaga el serviciog
             builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
 
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
             var app = builder.Build();
 
