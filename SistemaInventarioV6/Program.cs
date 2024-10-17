@@ -27,6 +27,14 @@ namespace SistemaInventarioV6
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            //Aca se agrega el otro builder para que reedirecciones a login o logout o acceso denegado si el usuario no esta autorizado
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Login";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false; //Pa que no me pida numeros
@@ -63,6 +71,8 @@ namespace SistemaInventarioV6
 
             app.UseRouting();
 
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
