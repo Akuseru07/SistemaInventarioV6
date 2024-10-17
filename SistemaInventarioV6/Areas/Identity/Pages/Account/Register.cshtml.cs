@@ -203,8 +203,16 @@ namespace SistemaInventarioV6.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        if (user.Role == null)
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                        else
+                        {
+                            //Administrador esta registrando un nuevo usuario y quiere conservar su mismo usuario logeado
+                            return RedirectToAction("Index", "Usuario", new {Area = "Admin"});   
+                        }
                     }
                 }
                 foreach (var error in result.Errors)
