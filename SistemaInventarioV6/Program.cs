@@ -80,6 +80,12 @@ namespace SistemaInventarioV6
                 pattern: "{area=Inventario}/{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
+            //agregado para la rotativa y poder usar las cosas
+            IWebHostEnvironment env = app.Environment;
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");
+
+
+
             app.Run();
         }
     }

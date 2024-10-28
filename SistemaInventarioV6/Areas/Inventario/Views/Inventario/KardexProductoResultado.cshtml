@@ -29,8 +29,13 @@
             <img src="@DS.ImagenRuta@Model.Producto.ImagenUrl" style="border-radius5px; width:100px; height:100px;"/>
         </div>
         <div class="row mb-2">
-            <div class="form-group col-md-3 mt-2">
+            <div class="form-group col-md-6 mt-2">
                 <a asp-action="KardexProducto" class="btn btn-primary">Nueva Consulta</a>
+                <a asp-action="ImprimirKardex" asp-route-fechaInicio="@Model.FechaInicio" 
+                asp-route-fechaFinal="@Model.FechaFinal" 
+                asp-route-productoId="@Model.Producto.Id" class="btn btn-primary">
+                    <i class="bi bi-printer"></i>Imprimir
+                </a>
                 <a asp-action="Index" class="btn btn-primary">Salir</a>
             </div>
         </div>
@@ -54,7 +59,7 @@
                         <th class="text-center">Costo</th>
                         <th class="text-center">Total</th>
                     </tr>
-                </thead>
+                </thead>  
                 @foreach(var datos in Model.KardexInventarioLista.Where(d => d.BodegaProducto.Bodega.Nombre == bodega.Key))
                 {
                     <tr>
