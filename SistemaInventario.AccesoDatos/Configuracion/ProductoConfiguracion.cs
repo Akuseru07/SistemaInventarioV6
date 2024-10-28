@@ -22,7 +22,7 @@ namespace SistemaInventarioV6.Configuracion
             builder.Property(x => x.PadreId).IsRequired(false);
 
             //Relaciones
-            //HasOne ed de uno y withmany a muchos
+            //HasOne es de uno y withmany a muchos
             builder.HasOne(x => x.Categoria).WithMany()
                 .HasForeignKey(x => x.CategoriaId)
                 .OnDelete(DeleteBehavior.NoAction);
