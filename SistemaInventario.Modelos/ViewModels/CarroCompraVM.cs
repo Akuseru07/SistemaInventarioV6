@@ -12,5 +12,12 @@ namespace SistemaInventario.Modelos.ViewModels
         public Producto Producto { get; set; }
         public int Stock { get; set; }
         public CarroCompra CarroCompra { get; set; }
+
+        //Nuevos propiedades
+
+        public IEnumerable<CarroCompra> CarroCompraLista { get; set; }
+        public Orden Orden { get; set; }
+
+
     }
 }
