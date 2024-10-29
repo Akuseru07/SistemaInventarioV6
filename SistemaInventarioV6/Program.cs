@@ -52,6 +52,14 @@ namespace SistemaInventarioV6
 
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
+            //Servicio para sesiones
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -70,6 +78,9 @@ namespace SistemaInventarioV6
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //para sesiones
+            app.UseSession();
 
             
             app.UseAuthentication();
